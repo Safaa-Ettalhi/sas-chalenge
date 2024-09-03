@@ -112,6 +112,7 @@ int main(){
            
             default:
                 printf("Choix invalide. Veuillez réessayer.\n");
+                printf("Choix invalide. Veuillez réessayer.\n");
                 break;
         }
     } while (choix != 6);
