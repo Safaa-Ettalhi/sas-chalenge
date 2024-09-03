@@ -6,25 +6,24 @@
  float Prix[50];
  int Quantite[50];
  int nbrlivre=0;
- void ajouter(){
-    printf("entrer le titre de livre");
-    scanf("%s",&Titre[nbrlivre]);
-    printf("entrer l'auteur de l'LIVRE");
-    scanf("%s",&Auteur[nbrlivre]);
-    printf("entrer le prix");
-    scanf("%f",&Prix);
-    printf("entrer la quantite");
-    scanf("%d",&Quantite);
+ void ajouter() {
+    printf("entrer le titre de livre: ");
+    scanf("%s", Titre[nbrlivre]); 
+    printf("entrer l'auteur de livre: ");
+    scanf("%s", Auteur[nbrlivre]); 
+    printf("entrer le prix: ");
+    scanf("%f", &Prix[nbrlivre]);
+    printf("entrer la quantite: ");
+    scanf("%d", &Quantite[nbrlivre]);
     nbrlivre++;
-    printf("ajouter avec succes");
-
- }
+    printf("ajouté avec succes\n");
+}
  void afficher() {
     int i;
     printf("Les détails des livres : \n");
     for (i = 0; i < nbrlivre; i++) {
         printf("\nLivre num : %d\n", i + 1);
-        printf("\tTitre : %s - Auteur : %s - Prix : %.2f dhs - Quantité : %d\n",
+        printf("\t Titre : %s - Auteur : %s - Prix : %.2f dhs - Quantite : %d\n",
                Titre[i], Auteur[i], Prix[i], Quantite[i]);
     }
 }
@@ -60,7 +59,7 @@ void supprimer() {
     if (id_supp == -1) {
         printf("Aucun livre trouvé avec ce titre.\n");
     } else {
-        // je déplacer les livres pour combiler l'espace
+        //  combiler l'espace
         for (int i = id_supp; i < nbrlivre - 1; i++) {
             strcpy(Titre[i], Titre[i + 1]);
             strcpy(Auteur[i], Auteur[i + 1]);
@@ -84,6 +83,7 @@ int main(){
     int choix;
 
     do {
+        printf("\n               gestion de biblioteque                           ");
         printf("\n  1. pour ajouter un livres");
         printf("\n  2. pour Afficher tous les livres disponibles");
         printf("\n  3. pour Mettre à jour la quantité d'un livre.");
@@ -109,10 +109,11 @@ int main(){
             case 5:
                 nbrtotal();
                 break;
-           
+            case 6:
+                exit(0);
             default:
-                printf("Choix invalide. Veuillez réessayer.\n");
-                printf("Choix invalide. Veuillez réessayer.\n");
+                
+                printf("Choix invalide. Veuillez ressayer.\n");
                 break;
         }
     } while (choix != 6);
