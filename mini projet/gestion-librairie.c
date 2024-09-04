@@ -27,7 +27,22 @@
                Titre[i], Auteur[i], Prix[i], Quantite[i]);
     }
 }
-
+void rechercher(){
+     char titre_rech[50];
+      printf("entrer le titre rechercher");
+      scanf("%s",&titre_rech);
+       for(int i=0;i<nbrlivre;i++){
+        if(strcmp(Titre[i],titre_rech)==0){
+            printf("le livre recherchee a etee trouver par succes \n");
+             printf("\t Titre : %s - Auteur : %s - Prix : %.2f dhs - Quantite : %d\n",
+               Titre[i], Auteur[i], Prix[i], Quantite[i]);
+                break;
+        }
+        else
+            printf("Livre non trouvé");
+       }
+       
+}
 void modifier(){
     char titre_rech[50];
     int quantite_nouvelle;
@@ -39,6 +54,7 @@ void modifier(){
             scanf("%d",&quantite_nouvelle); 
             Quantite[i]=quantite_nouvelle;
             printf("mise ajr avec succes");
+            break;
         }
     }
 }
@@ -86,10 +102,11 @@ int main(){
         printf("\n               gestion de biblioteque                           ");
         printf("\n  1. pour ajouter un livres");
         printf("\n  2. pour Afficher tous les livres disponibles");
-        printf("\n  3. pour Mettre à jour la quantité d'un livre.");
-        printf("\n  4. pour Supprimer un livre du stock.");
-        printf("\n  5. pour Afficher le nombre total de livres en stock.");
-        printf("\n  6. pour quitter");
+        printf("\n  3. Rechercher un livre par son titre.");
+        printf("\n  4. pour Mettre à jour la quantité d'un livre.");
+        printf("\n  5. pour Supprimer un livre du stock.");
+        printf("\n  6. pour Afficher le nombre total de livres en stock.");
+        printf("\n  7. pour quitter");
         printf("\nEntrez votre choix : ");
         scanf("%d", &choix);
 
@@ -101,20 +118,23 @@ int main(){
                 afficher();
                 break;
             case 3:
-                  modifier();
+                  rechercher();
                 break;
             case 4:
-                supprimer();
+                  modifier();
                 break;
             case 5:
-                nbrtotal();
+                supprimer();
                 break;
             case 6:
+                nbrtotal();
+                break;
+            case 7:
                 exit(0);
             default:
                 
                 printf("Choix invalide. Veuillez ressayer.\n");
                 break;
         }
-    } while (choix != 6);
+    } while (choix != 7);
 }
