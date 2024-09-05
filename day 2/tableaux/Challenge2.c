@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int main() {
-    int n,i,somme = 0;  
+    int n,i;  
     printf("Entrez le nombre delement dans le tableau  ");
     scanf("%d", &n);
     int tableau[n];
