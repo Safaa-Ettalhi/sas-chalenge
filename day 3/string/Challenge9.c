@@ -5,7 +5,7 @@
 
 int main() {
     char car1[20];
-    char convertion[20];
+    
     printf("entrer la chaine a converter");
     scanf("%[^\n]",&car1);
     for (int i = 0; i < strlen(car1); i++) {
