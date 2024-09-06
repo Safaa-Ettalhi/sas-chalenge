@@ -1,4 +1,4 @@
-// Online C compiler to run C program online
+
 #include <stdio.h>
 int tab[]={1,2,3,4,5};
 int main() {

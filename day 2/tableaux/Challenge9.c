@@ -15,8 +15,8 @@ int main() {
     int temp, i=0, fin = n-1;
     while (i < fin) {
         temp = tableau_initial[i];
-        tableau_initial[i] = tableau_initial[n-1];
-        tableau_initial[n-1] = temp;
+        tableau_initial[i] = tableau_initial[fin];
+        tableau_initial[fin] = temp;
         i++;
         fin--;
      }

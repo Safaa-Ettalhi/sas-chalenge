@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-// un programme C qui lit une chaîne de caractères et supprime tous les espaces
+// Trouver un Sous-String
 
 int main() {
     char caract1[50];
