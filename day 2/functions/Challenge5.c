@@ -1,6 +1,6 @@
 #include <stdio.h>
 int factorielle(int a){
-  unsigned int result = 1;
+    int result = 1;
     for (int i = 1; i <= a; i++) {
         result *= i;
     }
