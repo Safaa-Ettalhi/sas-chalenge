@@ -72,6 +72,17 @@ void ajouterpleusieur(){
         }
         }    
 }
+void afficherTachesUrgentes(char date1[], char date2[], char date3[]) {
+    printf("Tâches avec deadline dans 3 jours ou moins:\n");
+    for (int i = 0; i < nbrtaches; i++) {
+        if (strcmp(taches[i].deadline, date1) == 0 ||
+            strcmp(taches[i].deadline, date2) == 0 ||
+            strcmp(taches[i].deadline, date3) == 0) {
+            printf("Tache %d\n\tID: %s | Titre: %s | Description: %s | Deadline: %s | Statut: %s\n", 
+                   i+1, taches[i].Id, taches[i].titre, taches[i].description, taches[i].deadline, taches[i].statut);
+        }
+    }
+}
 void AfficherListe() {
     int choix;
 
@@ -79,6 +90,7 @@ void AfficherListe() {
     printf("1. Afficher la liste de toutes les tâches.\n");
     printf("2. Afficher la liste de toutes les tâches par deadline.\n");
     printf("3. Afficher la liste de toutes les tâches par ordre alphabétique.\n");
+  printf("4. Afficher les tâches avec deadline dans 3 jours ou moins.\n");
 
     printf("Entrer votre choix: ");
     scanf("%d", &choix);
@@ -88,34 +100,61 @@ void AfficherListe() {
 
     switch (choix) {
         case 1:
-            for (int i = 0; i < nb; i++) 
-                printf("Tache %d\n\tID: %s | Titre: %s | Description: %s | Deadline: %s | Statut: %s\n", i+1, tache[i].ID, tache[i].Titre, tache[i].Desc, tache[i].Deadline, tache[i].Statut);
+            // Afficher toutes les tâches sans tri
+            for (int i = 0; i < nbrtaches; i++) 
+                printf("Tache %d\n\tID: %s | Titre: %s | Description: %s | Deadline: %s | Statut: %s\n", i+1, taches[i].Id, taches[i].titre, taches[i].description, taches[i].deadline, taches[i].statut);
             break;
 
         case 2:
-            for (int i = 0; i < nb - 1; i++) {
-                for (int j = 0; j < nb - i - 1; j++) {
-                    if (strcmp(tache[j].Deadline, tache[j + 1].Deadline) > 0) {
-                        Todo tmp = tache[j];
-                        tache[j] = tache[j + 1];
-                        tache[j + 1] = tmp;
+            // Tri par deadline
+            for (int i = 0; i < nbrtaches - 1; i++) {
+                for (int j = 0; j < nbrtaches - i - 1; j++) {
+                    if (strcmp(taches[j].deadline, taches[j + 1].deadline) > 0) {
+                        Tache tmp = taches[j];
+                        taches[j] = taches[j + 1];
+                        taches[j + 1] = tmp;
                     }
                 }
             }
+            // Afficher après tri
+            for (int i = 0; i < nbrtaches; i++) 
+                printf("Tache %d\n\tID: %s | Titre: %s | Description: %s | Deadline: %s | Statut: %s\n", i+1, taches[i].Id, taches[i].titre, taches[i].description, taches[i].deadline, taches[i].statut);
             break;
 
         case 3:
-            for (int i = 0; i < nb-1; i++) {
-                for (int j = 0; j < nb-i-1; j++) {
-                    if (strcmp(tache[j].Titre, tache[j+1].Titre) > 0) {
-                        Todo tmp = tache[j];
-                        tache[j] = tache[j+1];
-                        tache[j+1] = tmp;
+            // Tri par ordre alphabétique du titre
+            for (int i = 0; i < nbrtaches - 1; i++) {
+                for (int j = 0; j < nbrtaches - i - 1; j++) {
+                    if (strcmp(taches[j].titre, taches[j+1].titre) > 0) {
+                        Tache tmp = taches[j];
+                        taches[j] = taches[j+1];
+                        taches[j+1] = tmp;
                     }
                 }
             }
-    } 
+            // Afficher après tri
+            for (int i = 0; i < nbrtaches; i++) 
+                printf("Tache %d\n\tID: %s | Titre: %s | Description: %s | Deadline: %s | Statut: %s\n", i+1, taches[i].Id, taches[i].titre, taches[i].description, taches[i].deadline, taches[i].statut);
+            break;
+
+        case 4:
+           
+            char date1[20], date2[20], date3[20];
+            printf("Entrer la date d'aujourd'hui (format YYYY-MM-DD): ");
+            scanf("%s", date1);
+            printf("Entrer la date de demain (format YYYY-MM-DD): ");
+            scanf("%s", date2);
+            printf("Entrer la date après-demain (format YYYY-MM-DD): ");
+            scanf("%s", date3);
+
+            afficherTachesUrgentes(date1, date2, date3);
+            break;
+        default:
+            printf("Choix invalide.\n");
+            break;
+    }
 }
+
 void ModifierTache() {
     char idnew[30], descnew[200], statutnew[30], deadlinenew[30];
     int choix;
@@ -156,10 +195,10 @@ int i;
                     break;
             }
         }
-
+   printf("Tâche modifié:\n\tID: %s | Description: %s | Statut: %s | Deadline: %s\n", taches[i].Id, taches[i].description, taches[i].statut, taches[i].deadline);
     }
 
-    printf("Tâche modifié:\n\tID: %s | Description: %s | Statut: %s | Deadline: %s\n", taches[i].Id, taches[i].description, taches[i].statut, taches[i].deadline);
+    
 }
 void supprimer_Id() {
     char IdReche[30];
@@ -181,33 +220,99 @@ void supprimer_Id() {
 
     printf("Aucun tache trouve avec ce id.\n");
 }
-void rechId(){
-    char Idrech[20];
-    printf("Entrez lid de taches a suprimer : ");
-    scanf("%[^\n]",Idrech);
-   
+void rechercher(){
 
-    for (int i = 0; i < nbrtaches; i++) {
-        if (strcmp(taches[i].Id, Idrech) == 0) {
-            printf("tach exicte !\n");
-            printf("id : %s \n", taches[i].Id);
-            printf("Titre : %s \n", taches[i].titre);
-            printf("description : %s \n", taches[i].description);
-            printf("Deadline :%s\n",taches[i].deadline);
-            printf("Statut :%s \n ",taches[i].statut);
+    int choix,i;
+    printf("Choisissez l'option convenable\n");
+    printf("1. Rechercher une tâche par son Identifiant.\n");
+    printf("2. Rechercher une tâche par son Titre.\n");
+    printf("Entrer votre choix: ");
+    scanf("%d", &choix);
+    getchar();
+    switch (choix)
+    {
+    case 1:
+           char idrech[30];
+             printf("Entrer l'id de la tache rechercher: ");
+             scanf("%s", idrech);
             
-            return;
+            for ( i = 0; i < nbrtaches; i++) {
+            if (strcmp(taches[i].Id, idrech) == 0) {
+            printf("ID : %s\n", taches[i].Id);
+            printf("Titre : %s\n", taches[i].titre);
+            printf("Description : %s\n", taches[i].description);
+            printf("Deadline : %s\n", taches[i].deadline);
+            printf("Statut : %s\n", taches[i].statut);
+             break;
+        }
+         printf("Aucune tache trouve avec ce id.\n");
+}
+    
+
+        break;
+        case 2:
+             char titrerech[30];
+             printf("Entrer le titre de la tache rechercher: ");
+             scanf("%s", titrerech);
+        
+            for ( i = 0; i < nbrtaches; i++) {
+            if (strcmp(taches[i].titre, titrerech) == 0) {
+            printf("ID : %s\n", taches[i].Id);
+            printf("Titre : %s\n", taches[i].titre);
+            printf("Description : %s\n", taches[i].description);
+            printf("Deadline : %s\n", taches[i].deadline);
+            printf("Statut : %s\n", taches[i].statut);
+             break;
+        }
+         printf("Aucune tache trouve avec ce titre.\n");
+}
+    
+
+        break;
+    default:
+      printf("Choix invalide. Veuillez réessayer.\n");
+      break;
+}
+}
+int calculerJoursRestants(const char* dateActuelle, const char* deadline) {
+    int anneeActuelle, moisActuel, jourActuel;
+    int anneeDeadline, moisDeadline, jourDeadline;
+    sscanf(dateActuelle, "%d-%d-%d", &anneeActuelle, &moisActuel, &jourActuel);
+    sscanf(deadline, "%d-%d-%d", &anneeDeadline, &moisDeadline, &jourDeadline);
+    int joursRestants = (anneeDeadline - anneeActuelle) * 365 + (moisDeadline - moisActuel) * 30 + (jourDeadline - jourActuel);
+
+    return joursRestants;
+}
+
+void afficherStatistiques() {
+    int totalTaches = nbrtaches;
+    int tachesCompletes = 0;
+    int tachesIncompletes = 0;
+      char dateActuelle[20];
+    printf("Entrer la date actuelle (format YYYY-MM-DD) : ");
+    scanf("%s", dateActuelle);
+    for (int i = 0; i < nbrtaches; i++) {
+        if (strcmp(taches[i].statut, "finalisée") == 0) {
+            tachesCompletes++;
+        } else {
+            tachesIncompletes++;
         }
     }
-
-    printf("Aucune tache trouve avec ce id.\n");
+    printf("Nombre total de tAches : %d\n", totalTaches);
+    printf("Nombre de taches completes : %d\n", tachesCompletes);
+    printf("Nombre de taches incompletes : %d\n", tachesIncompletes);
+    printf("\nJours restants jusqu'au deadline pour chaque tâche :\n");
+     for (int i = 0; i < nbrtaches; i++) {
+        int joursRestants = calculerJoursRestants(dateActuelle, taches[i].deadline);
+        printf("Tache %d (%s) - Jours restants : %d jours\n", i+1, taches[i].titre, joursRestants);
+    }
 }
 int main() {
     int choix,choixrech;
     do{
         printf("\n ------------GESTIONS DE TACHES-----------\n");
         printf("    1. Ajouter une taches\n");
-        printf("    2. Afficher pleusieurs taches\n");
+        printf("    2. Ajouter pleusieurs taches\n");
         printf("    3. Afficher la liste de toutes les tâches \n");
         printf("    4. Modifier une tâche\n");
         printf("    5. Supprimer une tâche\n");
@@ -225,7 +330,7 @@ int main() {
                 ajouterpleusieur();
                 break;
             case 3:
-                
+               AfficherListe();
                 break;
             case 4:
                  ModifierTache();
@@ -234,25 +339,11 @@ int main() {
                 supprimer_Id();
                 break;
             case 6:
-                 printf("    Entrez votre choix : ");
-                  printf("1.rechercher par id");
-                  printf("1.rechercher par titre");
-                  scanf("%d", &choixrech);
-                  getchar();
-                  switch(choix){
-                      case 1:
-                        rechId();
-                      break;
-                      case 2:
-                        rechTitre();
-                      break;
-                      default:
-                printf("Choix invalide. Veuillez réessayer.\n");
-                break;
-                  }
+                 
+                rechercher();
                 break;
             case 7:
-               
+               afficherStatistiques();
                 break;
             default:
                 printf("Choix invalide. Veuillez réessayer.\n");
