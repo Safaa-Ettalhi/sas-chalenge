@@ -100,13 +100,13 @@ void AfficherListe() {
 
     switch (choix) {
         case 1:
-            // Afficher toutes les tâches sans tri
+    
             for (int i = 0; i < nbrtaches; i++) 
                 printf("Tache %d\n\tID: %s | Titre: %s | Description: %s | Deadline: %s | Statut: %s\n", i+1, taches[i].Id, taches[i].titre, taches[i].description, taches[i].deadline, taches[i].statut);
             break;
 
         case 2:
-            // Tri par deadline
+        
             for (int i = 0; i < nbrtaches - 1; i++) {
                 for (int j = 0; j < nbrtaches - i - 1; j++) {
                     if (strcmp(taches[j].deadline, taches[j + 1].deadline) > 0) {
@@ -116,13 +116,12 @@ void AfficherListe() {
                     }
                 }
             }
-            // Afficher après tri
             for (int i = 0; i < nbrtaches; i++) 
                 printf("Tache %d\n\tID: %s | Titre: %s | Description: %s | Deadline: %s | Statut: %s\n", i+1, taches[i].Id, taches[i].titre, taches[i].description, taches[i].deadline, taches[i].statut);
             break;
 
         case 3:
-            // Tri par ordre alphabétique du titre
+           
             for (int i = 0; i < nbrtaches - 1; i++) {
                 for (int j = 0; j < nbrtaches - i - 1; j++) {
                     if (strcmp(taches[j].titre, taches[j+1].titre) > 0) {
@@ -132,7 +131,7 @@ void AfficherListe() {
                     }
                 }
             }
-            // Afficher après tri
+          
             for (int i = 0; i < nbrtaches; i++) 
                 printf("Tache %d\n\tID: %s | Titre: %s | Description: %s | Deadline: %s | Statut: %s\n", i+1, taches[i].Id, taches[i].titre, taches[i].description, taches[i].deadline, taches[i].statut);
             break;
