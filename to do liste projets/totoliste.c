@@ -1,12 +1,14 @@
 // Online C compiler to run C program online
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 typedef struct{
   char Id[30];  
   char titre[50];
   char description[80];
   char deadline[20];
   char statut[40];
+  char dateCreation[20]; 
 }Tache;
 Tache taches[100];
 int nbrtaches=0;
@@ -54,6 +56,9 @@ void ajouter(){
    printf("entrer la statut statut (à réaliser, en cours de réalisation, finalisée)");
    scanf("%[^\n]",taches[nbrtaches].statut);
    getchar();
+   time_t t = time(NULL);
+   struct tm tm = *localtime(&t);
+    sprintf(taches[nbrtaches].dateCreation, "%d-%02d-%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
    nbrtaches++;
    printf("Ajoutee avec succes.\n");
 }
