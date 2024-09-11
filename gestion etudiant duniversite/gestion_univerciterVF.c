@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <string.h>
 
@@ -418,9 +419,8 @@ void affichnbrreussdep() {
     }
 }
 void ajouterMultiplesEtudiants() {
-    // Remplir les données pour 10 étudiants
-    char noms[10][50] = {"Dupont", "Durand", "Martin", "Bernard", "Dubois", "Thomas", "Robert", "Petit", "Roux", "Moreau"};
-    char prenoms[10][50] = {"Jean", "Paul", "Marie", "Sophie", "Lucas", "Chloe", "Alex", "Emma", "Luca", "Anna"};
+     char noms[10][50] = {"El Amrani", "Belkadi", "Bouzid", "El Ghazi", "Fassi", "Haddad", "Idrissi", "Jaziri", "Kabbaj", "Malki"};
+    char prenoms[10][50] = {"Ahmed", "Fatima", "Hassan", "Khadija", "Mohamed", "Rachid", "Samira", "Tariq", "Youssef", "Zineb"};
     char dates_naissance[10][11] = {"2000-01-01", "1999-05-15", "2001-12-30", "2000-03-21", "1998-07-12", "2002-11-25", "1999-08-19", "2001-04-16", "2000-10-09", "1999-02-20"};
     char departements[10][30] = {"Physique", "Chimie", "Biologie", "Géologie", "Économie", "Informatique", "Design", "Finance", "Logistique", "Ressources Humaines"};
     float notes_generales[10] = {12.5, 15.0, 9.0, 13.0, 17.0, 10.0, 14.5, 11.0, 8.0, 16.5};
