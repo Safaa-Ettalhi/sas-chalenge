@@ -245,28 +245,129 @@ void trier_Statut() {
         for (int j = i + 1; j < nbretudiant; j++) {
             int reussiI, reussiJ;
 
-            if (etudiants[i].note_generale >= 10) {
+           if (etudiants[i].note_generale >= 10) {
                 reussiI = 1;
             } else {
                 reussiI = 0;
             }
-
             if (etudiants[j].note_generale >= 10) {
                 reussiJ = 1;
             } else {
                 reussiJ = 0;
             }
-            
+             if (reussiI < reussiJ) {
                 Etudiant temp = etudiants[i];
                 etudiants[i] = etudiants[j];
                 etudiants[j] = temp;
-           
+            }
         }
     }
     printf("Etudiants triés par statut.\n");
     afficher(); 
 }
+void nbrtotaletud(){
+    
+        printf("le nombre total des etudiants c'est:%d",nbretudiant);
+ 
+}
+void nbretud_dep(){
+    if (nbretudiant == 0) {
+        printf("aucun etudiant trouvee.\n");
+        return;
+    }
+    char departements[100][30];
+    int nbDepartements = 0;
 
+    for (int i = 0; i < nbretudiant; i++) {
+        int existe = 0;
+        for (int j = 0; j < nbDepartements; j++) {
+            if (strcmp(etudiants[i].departement, departements[j]) == 0) {
+                existe = 1;
+                break;
+            }
+        }
+        if (!existe) {
+            strcpy(departements[nbDepartements], etudiants[i].departement);
+            nbDepartements++;
+        }
+    }
+    for (int i = 0; i < nbDepartements; i++) {
+        int count = 0;
+        for (int j = 0; j < nbretudiant; j++) {
+            if (strcmp(etudiants[j].departement, departements[i]) == 0) {
+                count++;
+            }
+        }
+        printf("Nombre d'etudiants dans le departement %s : %d\n", departements[i], count);
+    }
+}
+void affichetudSeuil() {
+     float seuil;
+      printf("Entrez le seuil de note : ");
+      scanf("%f", &seuil);
+       printf("Étudiants ayant une moyenne générale supérieure à %.2f :\n", seuil);
+    for (int i = 0; i < nbretudiant; i++) {
+        if (etudiants[i].note_generale > seuil) {
+           
+          
+            printf("Numero : %d, Nom : %s, Prenom : %s, Note Generale : %.2f\n",
+                   etudiants[i].numero, etudiants[i].nom, etudiants[i].prenom, etudiants[i].note_generale);
+        }
+      
+    }
+    
+}
+void affich3etudtop() {
+    if (nbretudiant == 0) {
+        printf("Aucun etudiant trouve.\n");
+        return;
+    }
+    for (int i = 0; i < nbretudiant - 1; i++) {
+        for (int j = i + 1; j < nbretudiant; j++) {
+            if (etudiants[i].note_generale < etudiants[j].note_generale) {
+                Etudiant temp = etudiants[i];
+                etudiants[i] = etudiants[j];
+                etudiants[j] = temp;
+            }
+        }
+    }
+
+    printf("3 meilleurs etudiants sont :\n");
+    for (int i = 0; i < 3 && i < nbretudiant; i++) {
+        printf("Numero : %d, Nom : %s, Prenom : %s, Note Generale : %.2f\n",
+               etudiants[i].numero, etudiants[i].nom, etudiants[i].prenom, etudiants[i].note_generale);
+    }
+}
+void affichnbrreussdep() {
+    if (nbretudiant == 0) {
+        printf("Aucun etudiant trouve.\n");
+        return;
+    }
+    char departements[100][30];
+    int nbDepartements = 0;
+    for (int i = 0; i < nbretudiant; i++) {
+        int existe = 0;
+        for (int j = 0; j < nbDepartements; j++) {
+            if (strcmp(etudiants[i].departement, departements[j]) == 0) {
+                existe = 1;
+                break;
+            }
+        }
+        if (!existe) {
+            strcpy(departements[nbDepartements], etudiants[i].departement);
+            nbDepartements++;
+        }
+    }
+    for (int i = 0; i < nbDepartements; i++) {
+        int count = 0;
+        for (int j = 0; j < nbretudiant; j++) {
+            if (strcmp(etudiants[j].departement, departements[i]) == 0 && etudiants[j].note_generale >= 10) {
+                count++;
+            }
+        }
+        printf("Nombre d'etudiants reussis dans le departement %s : %d\n", departements[i], count);
+    }
+}
 int main() {
     int choix;
     do{
@@ -299,9 +400,44 @@ int main() {
             case 5:
                  calculerMoyenne_Departement();
                 break;
-            case 6:
-            
-                break; 
+            case 6:{
+                 
+                int choixStatistique;
+                printf("\n --------------------- STATISTIQUES -------------------------------\n");
+                printf("    1. Afficher le nombre total d'etudiants\n");
+                printf("    2. Afficher le nombre d'etudiants par departement\n");
+                printf("    3. Afficher les etudiants ayant une note superieure a un seuil\n");
+                printf("    4. Afficher les 3 meilleurs etudiants\n");
+                printf("    5. Afficher le nombre d'etudiants reussis par departement\n");
+                printf(" ------------------------------------------------------------------\n");
+                printf("    Entrez votre choix : ");
+                scanf("%d", &choixStatistique);
+                getchar();
+                switch (choixStatistique) {
+                     case 1:
+                          nbrtotaletud();
+                            break;
+                     case 2:
+                            nbretud_dep();
+                            break;
+                     case 3: {
+                           
+                           affichetudSeuil();
+                            break;
+                                        }
+                     case 4:
+                          affich3etudtop();
+                            break;
+                     case 5:
+                            affichnbrreussdep();
+                            break;
+                    default:
+                            printf("Choix invalide. Veuillez réessayer.\n");
+                            break;
+                        }
+                             break;
+                        }
+                                break; 
             case 7:
                  int rechChoix;
                 printf("\n ----- RECHERCHER-----\n");
