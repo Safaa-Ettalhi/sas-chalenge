@@ -434,7 +434,7 @@ void ajouterMultiplesEtudiants() {
         strcpy(etudiants[nbretudiant].nom, noms[i]);
         strcpy(etudiants[nbretudiant].prenom, prenoms[i]);
         strcpy(etudiants[nbretudiant].date_naissance, dates_naissance[i]);
-        strcpy(etudiants[nbretudiant].departement, departements[i % nbrDepartements]);
+        strcpy(etudiants[nbretudiant].departement, departements[i]);
         etudiants[nbretudiant].note_generale = notes_generales[i];
         nbretudiant++;
     }
