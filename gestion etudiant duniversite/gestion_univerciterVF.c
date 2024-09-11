@@ -1,4 +1,3 @@
-#include<stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -358,25 +357,21 @@ void nbretud_dep() {
 }
 
 void affichetudSeuil() {
-     float seuil;
-      printf("Entrez le seuil de note : ");
-      scanf("%f", &seuil);
-      int exict=0;
-        for (int i = 0; i < nbretudiant; i++) {
+    float seuil;
+    printf("Entrez le seuil de note : ");
+    scanf("%f", &seuil);
+    getchar();
+    int exict = 0;
+    printf("Etudiants ayant une moyenne superieure à %.2f :\n", seuil);
+    for (int i = 0; i < nbretudiant; i++) {
         if (etudiants[i].note_generale > seuil) {
             exict = 1;
-            break;
+            printf("Numero : %d, Nom : %s, Prenom : %s, Note Generale : %.2f\n", 
+                   etudiants[i].numero, etudiants[i].nom, etudiants[i].prenom, etudiants[i].note_generale);
         }
-      
-    }
-    if(exict == 1){
-       printf("Etudiants ayant une moyenne une note superieure  à %.2f :\n ", seuil);
-       for(int i=0; i<nbretudiant; i++){
-            printf("Numero : %d, Nom : %s, Prenom : %s, Note Generale : %.2f\n",etudiants[i].numero, etudiants[i].nom, etudiants[i].prenom, etudiants[i].note_generale);
-       }
     }
     if (exict == 0) {
-        printf(" \n       -Aucun Etudiant sa note supérieure à %.2f.\n", seuil);
+        printf("Aucun étudiant n'a une note supérieure à %.2f.\n", seuil);
     }
 }
 
@@ -422,9 +417,33 @@ void affichnbrreussdep() {
         printf("Nombre d'etudiant reussi dans le département %s : %d\n", departements[i], nbretuddepar[i]);
     }
 }
+void ajouterMultiplesEtudiants() {
+    // Remplir les données pour 10 étudiants
+    char noms[10][50] = {"Dupont", "Durand", "Martin", "Bernard", "Dubois", "Thomas", "Robert", "Petit", "Roux", "Moreau"};
+    char prenoms[10][50] = {"Jean", "Paul", "Marie", "Sophie", "Lucas", "Chloe", "Alex", "Emma", "Luca", "Anna"};
+    char dates_naissance[10][11] = {"2000-01-01", "1999-05-15", "2001-12-30", "2000-03-21", "1998-07-12", "2002-11-25", "1999-08-19", "2001-04-16", "2000-10-09", "1999-02-20"};
+    char departements[10][30] = {"Physique", "Chimie", "Biologie", "Géologie", "Économie", "Informatique", "Design", "Finance", "Logistique", "Ressources Humaines"};
+    float notes_generales[10] = {12.5, 15.0, 9.0, 13.0, 17.0, 10.0, 14.5, 11.0, 8.0, 16.5};
+
+    for (int i = 0; i < 10; i++) {
+        if (nbretudiant >= 10000) {
+            printf("Université pleine.\n");
+            return;
+        }
+        etudiants[nbretudiant].numero = nbretudiant + 1;
+        strcpy(etudiants[nbretudiant].nom, noms[i]);
+        strcpy(etudiants[nbretudiant].prenom, prenoms[i]);
+        strcpy(etudiants[nbretudiant].date_naissance, dates_naissance[i]);
+        strcpy(etudiants[nbretudiant].departement, departements[i % nbrDepartements]);
+        etudiants[nbretudiant].note_generale = notes_generales[i];
+        nbretudiant++;
+    }
+    printf("10 étudiants ajoutés avec succès.\n");
+}
 
 int main() {
     int choix;
+    ajouterMultiplesEtudiants();
     do{
         printf("\n ------------GESTIONS D'ETUDIANTS DANS UNE UNIVERSITE-----------\n");
         printf("    1. Ajouter un etudiant\n");
@@ -547,4 +566,4 @@ int main() {
     }while(choix!=9);
      
     return 0;
-}
+} 
