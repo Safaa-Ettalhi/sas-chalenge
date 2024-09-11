@@ -33,7 +33,7 @@ void afficherContacts() {
     }
 
     printf("Liste des contacts :\n");
-    
+
     for (int i = 0; i < nbrContacts; i++) {
         printf("Contacts %d:\n",i+1);
         printf("Nom : %s \n", contacts[i].nom);
@@ -87,7 +87,7 @@ void supprimerContact() {
 
     for (int i = 0; i < nbrContacts; i++) {
         if (strcmp(contacts[i].nom, nomReche) == 0) {
-           
+
             for (int j = i; j < nbrContacts - 1; j++) {
                 contacts[j] = contacts[j + 1];
             }
